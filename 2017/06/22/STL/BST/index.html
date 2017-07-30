@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>二叉搜索树（Binary Search Tree, BST） | LCP`s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="特点二叉搜索树，也称有序二叉树，是指一棵树具有以下特点：  若任意结点N的左子树不为空，则左子树上所有的结点的值均小于N的值 若任意结点N的右子树不为空，其右子树上所有的结点的值均大于N的值 任意结点N的左右子树都是一棵BST 没有键值相等的结点（结点间的值不可能相等） 沿着BST左结点一直检索可以得到最小值，沿着BST右结点一直检索可以得到最大值。插入与删除BST的插入比较简单，按照BST的特点">
+<meta name="keywords" content="STL,BST">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉搜索树（Binary Search Tree, BST）">
+<meta property="og:url" content="http://me@licp.me/2017/06/22/STL/BST/index.html">
+<meta property="og:site_name" content="LCP`s Blog">
+<meta property="og:description" content="特点二叉搜索树，也称有序二叉树，是指一棵树具有以下特点：  若任意结点N的左子树不为空，则左子树上所有的结点的值均小于N的值 若任意结点N的右子树不为空，其右子树上所有的结点的值均大于N的值 任意结点N的左右子树都是一棵BST 没有键值相等的结点（结点间的值不可能相等） 沿着BST左结点一直检索可以得到最小值，沿着BST右结点一直检索可以得到最大值。插入与删除BST的插入比较简单，按照BST的特点">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-07-30T12:37:46.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉搜索树（Binary Search Tree, BST）">
+<meta name="twitter:description" content="特点二叉搜索树，也称有序二叉树，是指一棵树具有以下特点：  若任意结点N的左子树不为空，则左子树上所有的结点的值均小于N的值 若任意结点N的右子树不为空，其右子树上所有的结点的值均大于N的值 任意结点N的左右子树都是一棵BST 没有键值相等的结点（结点间的值不可能相等） 沿着BST左结点一直检索可以得到最小值，沿着BST右结点一直检索可以得到最大值。插入与删除BST的插入比较简单，按照BST的特点">
+    
+
+    
+        <link rel="alternate" href="/" title="LCP`s Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                
+                <span class="site-title">LCP`s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">Li Chengpeng</h2>
+            <h3 id="title">CG &amp; Excavator Tech</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Mars, China</span>
+            <a id="follow" target="_blank" href="https://github.com/leechengpeng">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                7
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                8
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/leechengpeng" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-STL/BST" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            二叉搜索树（Binary Search Tree, BST）
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/06/22/STL/BST/">
+            <time datetime="2017-06-21T16:00:00.000Z" itemprop="datePublished">2017-06-22</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/BST/">BST</a>, <a class="tag-link" href="/tags/STL/">STL</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>二叉搜索树，也称有序二叉树，是指一棵树具有以下特点：</p>
+<ul>
+<li>若任意结点N的左子树不为空，则左子树上所有的结点的值均小于N的值</li>
+<li>若任意结点N的右子树不为空，其右子树上所有的结点的值均大于N的值</li>
+<li>任意结点N的左右子树都是一棵BST</li>
+<li>没有键值相等的结点（结点间的值不可能相等）</li>
+<li>沿着BST左结点一直检索可以得到最小值，沿着BST右结点一直检索可以得到最大值。<h3 id="插入与删除"><a href="#插入与删除" class="headerlink" title="插入与删除"></a>插入与删除</h3>BST的插入比较简单，按照BST的特点即可快速插入新的结点。删除操作稍微复杂一点，分为以下两种情况（参照STL源码剖析P202图5-6a和5-6b）：</li>
+</ul>
+<ol>
+<li>待删除结点M只有一个子结点/子树N，此时直接将N结点连接到M的父节点上即可</li>
+<li>待删除结点M有左右子结点/子树，此时将结点M<strong>右子树的最小值</strong>（该最小值大于M左子树的任意值，同时也小于其右子树的任意值）替换结点M即可</li>
+</ol>
+<a id="more"></a>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">namespace</span> LLL</div><div class="line">&#123;</div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">safe_delete</span><span class="params">(T*&amp; vPtr)</span></span></div><div class="line"><span class="function">	</span>&#123;</div><div class="line">		<span class="keyword">delete</span> vPtr;</div><div class="line">		vPtr = <span class="literal">nullptr</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">SNode</span></span></div><div class="line"><span class="class">	&#123;</span></div><div class="line">		T m_Obj;</div><div class="line">		SNode&lt;T&gt;* m_pLeft;</div><div class="line">		SNode&lt;T&gt;* m_pRight;</div><div class="line"></div><div class="line">		SNode(T vObj = T()) : m_Obj(vObj), m_pLeft(<span class="literal">nullptr</span>), m_pRight(<span class="literal">nullptr</span>) &#123;&#125;</div><div class="line">		~SNode()</div><div class="line">		&#123;</div><div class="line">			safe_delete(m_pLeft);</div><div class="line">			safe_delete(m_pRight);</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line"></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="class"><span class="keyword">class</span> <span class="title">CBST</span></span></div><div class="line"><span class="class">	&#123;</span></div><div class="line">	<span class="keyword">public</span>:</div><div class="line">		CBST() : m_pRoot() &#123;&#125;</div><div class="line">		~CBST() &#123; safe_delete(m_pRoot); &#125;</div><div class="line"></div><div class="line">		<span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">const</span> T vObj)</span></span>;</div><div class="line">		<span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(<span class="keyword">const</span> T vObj)</span> <span class="keyword">const</span></span>;</div><div class="line"></div><div class="line">		<span class="function">T <span class="title">maxmum</span><span class="params">()</span>  <span class="keyword">const</span></span>;</div><div class="line">		<span class="function">T <span class="title">minimum</span><span class="params">()</span> <span class="keyword">const</span></span>;</div><div class="line"></div><div class="line">	<span class="keyword">private</span>:</div><div class="line">		SNode&lt;T&gt;* m_pRoot;</div><div class="line"></div><div class="line">		<span class="keyword">const</span> SNode&lt;T&gt;* __maxmum(SNode&lt;T&gt;* vpNode)  <span class="keyword">const</span>;</div><div class="line">		<span class="keyword">const</span> SNode&lt;T&gt;* __minimum(SNode&lt;T&gt;* vpNode) <span class="keyword">const</span>;</div><div class="line">	&#125;;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">void</span> CBST&lt;T&gt;::insert(<span class="keyword">const</span> T vObj)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (m_pRoot)</div><div class="line">		&#123;</div><div class="line">			SNode&lt;T&gt;* pNode = m_pRoot;</div><div class="line"></div><div class="line">			<span class="keyword">for</span> (;;)</div><div class="line">			&#123;</div><div class="line">				<span class="keyword">if</span> (pNode-&gt;m_Obj &gt; vObj)</div><div class="line">				&#123;</div><div class="line">					<span class="keyword">if</span> (pNode-&gt;m_pLeft == <span class="literal">nullptr</span>)</div><div class="line">					&#123;</div><div class="line">						pNode-&gt;m_pLeft = <span class="keyword">new</span> SNode&lt;T&gt;(vObj);</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line"></div><div class="line">					pNode = pNode-&gt;m_pLeft;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (pNode-&gt;m_Obj &lt; vObj)</div><div class="line">				&#123;</div><div class="line">					<span class="keyword">if</span> (pNode-&gt;m_pRight == <span class="literal">nullptr</span>)</div><div class="line">					&#123;</div><div class="line">						pNode-&gt;m_pRight = <span class="keyword">new</span> SNode&lt;T&gt;(vObj);</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line"></div><div class="line">					pNode = pNode-&gt;m_pRight;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span></div><div class="line">				&#123;</div><div class="line">					<span class="keyword">break</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		&#123;</div><div class="line">			m_pRoot = <span class="keyword">new</span> SNode&lt;T&gt;(vObj);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">bool</span> CBST&lt;T&gt;::search(<span class="keyword">const</span> T vObj) <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">auto</span> IsExist = <span class="literal">false</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">auto</span> pNode = m_pRoot; pNode != <span class="literal">nullptr</span>;)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span> (pNode-&gt;m_Obj &gt; vObj)</div><div class="line">			&#123;</div><div class="line">				pNode = pNode-&gt;m_pLeft;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (pNode-&gt;m_Obj &lt; vObj)</div><div class="line">			&#123;</div><div class="line">				pNode = pNode-&gt;m_pRight;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span></div><div class="line">			&#123;</div><div class="line">				IsExist = <span class="literal">true</span>;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> IsExist;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">const</span> SNode&lt;T&gt;* CBST&lt;T&gt;::__maxmum(SNode&lt;T&gt;* vpNode) <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">while</span> (vpNode-&gt;m_pRight) &#123; vpNode = vpNode-&gt;m_pRight; &#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> vpNode;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">const</span> SNode&lt;T&gt;* CBST&lt;T&gt;::__minimum(SNode&lt;T&gt;* vpNode) <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">while</span> (vpNode-&gt;m_pLeft) &#123; vpNode = vpNode-&gt;m_pLeft; &#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> vpNode;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">inline</span> T CBST&lt;T&gt;::maxmum() <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		_ASSERT(m_pRoot);</div><div class="line"></div><div class="line">		<span class="keyword">return</span> __maxmum(m_pRoot)-&gt;m_Obj;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	T CBST&lt;T&gt;::minimum() <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		_ASSERT(m_pRoot);</div><div class="line"></div><div class="line">		<span class="keyword">return</span> __minimum(m_pRoot)-&gt;m_Obj;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//FUNCTION: detect the memory leak in DEBUG mode</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">installMemoryLeakDetector</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="comment">// Enable run-time memory check for debug builds.</span></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(DEBUG) | defined(_DEBUG)</span></div><div class="line">	<span class="comment">//_CRTDBG_LEAK_CHECK_DF: Perform automatic leak checking at program exit through a call to _CrtDumpMemoryLeaks and generate an error </span></div><div class="line">	<span class="comment">//report if the application failed to free all the memory it allocated. OFF: Do not automatically perform leak checking at program exit.</span></div><div class="line">	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);</div><div class="line"></div><div class="line">	<span class="comment">//the following statement is used to trigger a breakpoint when memory leak happens</span></div><div class="line">	<span class="comment">//comment it out if there is no memory leak report;</span></div><div class="line">	<span class="comment">//_crtBreakAlloc = 30372;</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	installMemoryLeakDetector();</div><div class="line"></div><div class="line">	LLL::CBST&lt;<span class="keyword">int</span>&gt; BST;</div><div class="line">	BST.insert(<span class="number">15</span>);</div><div class="line">	BST.insert(<span class="number">1</span>);</div><div class="line">	BST.insert(<span class="number">22</span>);</div><div class="line">	BST.insert(<span class="number">-2</span>);</div><div class="line">	BST.insert(<span class="number">15</span>);</div><div class="line">	BST.insert(<span class="number">12</span>);</div><div class="line">	BST.insert(<span class="number">25</span>);</div><div class="line"></div><div class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Maxmux: "</span> &lt;&lt; BST.maxmum() &lt;&lt; <span class="string">", Minimum: "</span>&lt;&lt; BST.minimum() &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	<span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">bool</span>&gt; Tests = &#123; </div><div class="line">		<span class="comment">// Exist</span></div><div class="line">		&#123; <span class="number">15</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">1</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">22</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">-2</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">12</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">25</span>, <span class="literal">true</span> &#125;,</div><div class="line">		<span class="comment">// Does not exist </span></div><div class="line">		&#123;<span class="number">-50</span>, <span class="literal">false</span>&#125;, &#123; <span class="number">-5</span>, <span class="literal">false</span> &#125;, &#123;<span class="number">-1</span>, <span class="literal">false</span>&#125;, &#123;<span class="number">0</span>, <span class="literal">false</span>&#125;, &#123; <span class="number">5</span>, <span class="literal">false</span> &#125;, &#123; <span class="number">16</span>, <span class="literal">false</span> &#125;, &#123; <span class="number">100</span>, <span class="literal">false</span> &#125;,</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> Test : Tests) &#123; _ASSERT(BST.search(Test.first) == Test.second); &#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="平衡二叉搜索树（Balance-BST）"><a href="#平衡二叉搜索树（Balance-BST）" class="headerlink" title="平衡二叉搜索树（Balance BST）"></a>平衡二叉搜索树（Balance BST）</h2><p>由于输入数据不够随机或者插入删除操作，常常会导致BST不够平衡（平衡：没有任意结点的深度相对其他结点过深），而不平衡的BST会对搜索效率造成极大的影响。</p>
+<p>根据不同的平衡条件实现方式，大概有如下几种平衡二叉搜索树：</p>
+<ul>
+<li>AVL tree</li>
+<li>RB tree</li>
+<li>AA tree</li>
+</ul>
+
+        
+        </div>
+    </div>
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="uyan_frame"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/STL/" style="font-size: 20px;">STL</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/hash-table/" style="font-size: 10px;">hash-table</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/红黑树/" style="font-size: 10px;">红黑树</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://henng.com/">Henng</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 lichengpeng<br>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2140290"></script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

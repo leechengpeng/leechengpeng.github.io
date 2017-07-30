@@ -3,15 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>归档: 2017 | LCP`s Blog</title>
+    <title>红黑树（RB-Tree） | LCP`s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="LCP`s Blog">
-<meta property="og:url" content="http://me@licp.me/archives/2017/index.html">
+    <meta name="description" content="红黑树是一棵平衡二叉搜索树，具有如下性质：  任一节点非红即黑，根节点是黑色 任一节点至NULL的任意路径，所含的黑色节点数必须相等 –&amp;gt; 规则一：新增节点必须为红色 如果节点为红色，其子结点必须为黑色 –&amp;gt; 规则二：新增节点的父节点必须为黑色  由上述规则可知：新增节点本身为红色，其父节点为黑色。如果新增节点不满足上述规则，就必须调整颜色同时旋转树形结构，以保证树的平衡。">
+<meta name="keywords" content="STL,红黑树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红黑树（RB-Tree）">
+<meta property="og:url" content="http://me@licp.me/2017/06/24/STL/BST_RB_TREE/index.html">
 <meta property="og:site_name" content="LCP`s Blog">
+<meta property="og:description" content="红黑树是一棵平衡二叉搜索树，具有如下性质：  任一节点非红即黑，根节点是黑色 任一节点至NULL的任意路径，所含的黑色节点数必须相等 –&amp;gt; 规则一：新增节点必须为红色 如果节点为红色，其子结点必须为黑色 –&amp;gt; 规则二：新增节点的父节点必须为黑色  由上述规则可知：新增节点本身为红色，其父节点为黑色。如果新增节点不满足上述规则，就必须调整颜色同时旋转树形结构，以保证树的平衡。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-07-30T12:37:50.900Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LCP`s Blog">
+<meta name="twitter:title" content="红黑树（RB-Tree）">
+<meta name="twitter:description" content="红黑树是一棵平衡二叉搜索树，具有如下性质：  任一节点非红即黑，根节点是黑色 任一节点至NULL的任意路径，所含的黑色节点数必须相等 –&amp;gt; 规则一：新增节点必须为红色 如果节点为红色，其子结点必须为黑色 –&amp;gt; 规则二：新增节点的父节点必须为黑色  由上述规则可知：新增节点本身为红色，其父节点为黑色。如果新增节点不满足上述规则，就必须调整颜色同时旋转树形结构，以保证树的平衡。">
     
 
     
@@ -176,61 +181,21 @@
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-STL/BST_RB_TREE" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/25/STL/hashtable/">哈希表（hash table）</a>
+        <h1 class="article-title" itemprop="name">
+            红黑树（RB-Tree）
         </h1>
     
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/06/25/STL/hashtable/">
-            <time datetime="2017-06-24T16:00:00.000Z" itemprop="datePublished">2017-06-25</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/hash-table/">hash-table</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/24/STL/BST_RB_TREE/">红黑树（RB-Tree）</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2017/06/24/STL/BST_RB_TREE/">
@@ -239,135 +204,82 @@
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
         <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/红黑树/">红黑树</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/23/STL/BST_AVL_TREE/">AVL Tree (Adelson-Velskii-Landis Tree)</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>红黑树是一棵平衡二叉搜索树，具有如下性质：</p>
+<ul>
+<li>任一节点非红即黑，根节点是黑色</li>
+<li>任一节点至NULL的任意路径，所含的黑色节点数必须相等 –&gt; <strong>规则一：新增节点必须为红色</strong></li>
+<li>如果节点为红色，其子结点必须为黑色 –&gt; <strong>规则二：新增节点的父节点必须为黑色</strong></li>
+</ul>
+<p>由上述规则可知：<strong>新增节点本身为红色，其父节点为黑色</strong>。如果新增节点不满足上述规则，就必须调整颜色同时旋转树形结构，以保证树的平衡。</p>
+<a id="more"></a>
+<h3 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h3><p>为了方便描述，做如下定义：</p>
+<ul>
+<li>插入点：<strong>X</strong></li>
+<li>X的父节点：<strong>P</strong></li>
+<li>X的伯父节点：<strong>S</strong></li>
+<li>X的祖父节点：<strong>G</strong></li>
+<li>X的曾祖父节点：<strong>GG</strong></li>
+<li>外侧插入：被插入点的左子节点</li>
+<li>内侧插入：被插入点的右子节点</li>
+</ul>
+<h4 id="情况1："><a href="#情况1：" class="headerlink" title="情况1："></a>情况1：</h4><p>RB-Tree为空树，直接插入根节点位置，并将插入点<strong>X</strong>涂成黑色（插入点毕为红色）</p>
+<h4 id="情况2："><a href="#情况2：" class="headerlink" title="情况2："></a>情况2：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为黑色，不违反任何性质，直接插入即可</p>
+<h4 id="情况3："><a href="#情况3：" class="headerlink" title="情况3："></a>情况3：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为红色，其伯父节点<strong>S</strong>为<strong>红色</strong>：</p>
+<ol>
+<li>直接将父节点<strong>P</strong>和伯父节点<strong>S</strong>涂成黑色，祖父节点<strong>G</strong>涂成红色（当前以祖父节点<strong>G</strong>为子树满足红黑树的要求）</li>
+<li>由于祖父节点<strong>G</strong>为红色（之前为黑色），此时有分为两种情况：<ol>
+<li>如果曾祖父节点<strong>GG</strong>为黑色，当前所有节点都满足红色树的规则，<strong>调整完成</strong></li>
+<li>如果曾祖父节点<strong>GG</strong>为红色，此时将祖父节点<strong>G</strong>及其子树当做一个为红色的子节点，<strong>视情况继续调整</strong><blockquote>
+<p>注：由于未旋转树形结构，因此插入点<strong>X</strong>为内外侧插入均可。同时，因为插入之前树为红黑树，所以此情况下的祖父结点<strong>G</strong>必定存在且为黑色，下同</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="情况4："><a href="#情况4：" class="headerlink" title="情况4："></a>情况4：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为红色，其伯父节点<strong>S</strong>为<strong>黑色</strong>且<strong>X</strong>为<strong>外侧插入</strong>：</p>
+<ol>
+<li>将<strong>P</strong>和<strong>G</strong>变色（P-&gt;黑色，G-&gt;红色）</li>
+<li>进行一次单旋转（此时P就相当于之前G的角色，因此需涂黑，G被涂红则是为了遵守红黑树的规则）</li>
+</ol>
+<h4 id="情况5："><a href="#情况5：" class="headerlink" title="情况5："></a>情况5：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为红色，其伯父节点<strong>S</strong>为<strong>黑色</strong>且<strong>X</strong>为<strong>内侧插入</strong>：</p>
+<ol>
+<li>现将节点X和节点P进行一次单旋转，颜色保持不变</li>
+<li>通过步骤1，此时的情况和情况4相同，按照情况4操作步骤即可</li>
+</ol>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/06/23/STL/BST_AVL_TREE/">
-            <time datetime="2017-06-22T16:00:00.000Z" itemprop="datePublished">2017-06-23</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/AVL/">AVL</a>, <a class="tag-link" href="/tags/STL/">STL</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/22/STL/BST/">二叉搜索树（Binary Search Tree, BST）</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/06/22/STL/BST/">
-            <time datetime="2017-06-21T16:00:00.000Z" itemprop="datePublished">2017-06-22</time>
-        </a>
     </div>
+</article>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/BST/">BST</a>, <a class="tag-link" href="/tags/STL/">STL</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
     
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/21/STL/deque/">STL deque</a>
-        </h1>
+        <section id="comments">
+    <div id="uyan_frame"></div>
+</section>
     
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/06/21/STL/deque/">
-            <time datetime="2017-06-20T16:00:00.000Z" itemprop="datePublished">2017-06-21</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/deque/">deque</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-</div>
-
-    <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="extend next" rel="next" href="/archives/2017/page/2/">下一页 &raquo;</a>
-    </nav>
 </section>
             
                 

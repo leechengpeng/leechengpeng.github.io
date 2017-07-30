@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>STL | LCP`S PERSONAL BLOG</title>
+    <title>STL list | LCP`s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="序列式容器 vector list deque stack&amp;amp;queue：stack是一种先进后出的数据结构，而queue则是一种先进先出的数据结构。stack&amp;amp;queue都是以其他容器作为低层实现，这种方法叫做适配器（Adapter），因此，STL stack&amp;amp;queue并不被归类为容器，而是被归类为容器适配器（Container Adapter）。两种容器都只对其一端进行">
-<meta name="keywords" content="STL,vector">
+    <meta name="description" content="1. STL list是一个环状双向链表只需要一个指针，便可以表示整个环状双向链表1link_type node; node指向链表尾部，尾部结点是一个空白结点（没有存储实际值的结点）12iterator begin() &amp;#123; return (link_type)(node-&amp;gt;next); &amp;#125;iterator end()   &amp;#123; return node; &amp;#12">
+<meta name="keywords" content="STL,list">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STL">
-<meta property="og:url" content="http://me@licp.me/2017/06/20/STL/STL/index.html">
-<meta property="og:site_name" content="LCP`S PERSONAL BLOG">
-<meta property="og:description" content="序列式容器 vector list deque stack&amp;amp;queue：stack是一种先进后出的数据结构，而queue则是一种先进先出的数据结构。stack&amp;amp;queue都是以其他容器作为低层实现，这种方法叫做适配器（Adapter），因此，STL stack&amp;amp;queue并不被归类为容器，而是被归类为容器适配器（Container Adapter）。两种容器都只对其一端进行">
+<meta property="og:title" content="STL list">
+<meta property="og:url" content="http://me@licp.me/2017/06/20/STL/list/index.html">
+<meta property="og:site_name" content="LCP`s Blog">
+<meta property="og:description" content="1. STL list是一个环状双向链表只需要一个指针，便可以表示整个环状双向链表1link_type node; node指向链表尾部，尾部结点是一个空白结点（没有存储实际值的结点）12iterator begin() &amp;#123; return (link_type)(node-&amp;gt;next); &amp;#125;iterator end()   &amp;#123; return node; &amp;#12">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-07-30T10:52:57.680Z">
+<meta property="og:updated_time" content="2017-07-30T12:45:15.908Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STL">
-<meta name="twitter:description" content="序列式容器 vector list deque stack&amp;amp;queue：stack是一种先进后出的数据结构，而queue则是一种先进先出的数据结构。stack&amp;amp;queue都是以其他容器作为低层实现，这种方法叫做适配器（Adapter），因此，STL stack&amp;amp;queue并不被归类为容器，而是被归类为容器适配器（Container Adapter）。两种容器都只对其一端进行">
+<meta name="twitter:title" content="STL list">
+<meta name="twitter:description" content="1. STL list是一个环状双向链表只需要一个指针，便可以表示整个环状双向链表1link_type node; node指向链表尾部，尾部结点是一个空白结点（没有存储实际值的结点）12iterator begin() &amp;#123; return (link_type)(node-&amp;gt;next); &amp;#125;iterator end()   &amp;#123; return node; &amp;#12">
     
 
     
-        <link rel="alternate" href="/" title="LCP`S PERSONAL BLOG" type="application/atom+xml" />
+        <link rel="alternate" href="/" title="LCP`s Blog" type="application/atom+xml" />
     
 
     
@@ -53,13 +53,13 @@
         <div class="outer">
             <a href="/" id="logo">
                 
-                <span class="site-title">LCP`S PERSONAL BLOG</span>
+                <span class="site-title">LCP`s Blog</span>
             </a>
             <nav id="main-nav">
                 
                     <a class="main-nav-link" href="/.">Home</a>
                 
-                    <a class="main-nav-link" href="/archives">Archives</a>
+                    <a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a>
                 
             </nav>
             
@@ -118,7 +118,7 @@
                 
                     <td><a class="main-nav-link" href="/.">Home</a></td>
                 
-                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                    <td><a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a></td>
                 
                 <td>
                     
@@ -147,11 +147,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                2
+                7
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                2
+                8
                 <span>标签</span>
             </div>
         </div>
@@ -181,7 +181,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-STL/STL" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-STL/list" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -189,7 +189,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            STL
+            STL list
         </h1>
     
 
@@ -198,7 +198,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/06/20/STL/STL/">
+        <a href="/2017/06/20/STL/list/">
             <time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017-06-20</time>
         </a>
     </div>
@@ -207,13 +207,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/STL/">STL</a>
+        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/vector/">vector</a>
+        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/list/">list</a>
     </div>
 
                     </div>
@@ -224,42 +224,14 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="序列式容器"><a href="#序列式容器" class="headerlink" title="序列式容器"></a>序列式容器</h3><ul>
-<li><a href="vector.md">vector</a></li>
-<li><a href="list.md">list</a></li>
-<li><a href="deque.md">deque</a></li>
-<li><p><strong>stack&amp;queue</strong>：stack是一种<strong>先进后出</strong>的数据结构，而queue则是一种<strong>先进先出</strong>的数据结构。stack&amp;queue都是以其他容器作为低层实现，这种方法叫做适配器（Adapter），因此，STL stack&amp;queue并不被归类为容器，而是被归类为容器适配器（Container Adapter）。两种容器都只对其一端进行操作，因此，它们都没有遍历操作（没有迭代器）。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 注：stack只对其一端进行操作，因此还可以使用std::vector&lt;int&gt;作为其低层实现。</span></div><div class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;&gt; IStack; <span class="comment">// 默认</span></div><div class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;&gt;  IStack; <span class="comment">// 以std::list&lt;int&gt;作为stack的低层容器</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><a href="heap.md">heap </a>：一棵完全二叉树，直接使用vector表示树形关系，特点是父节点都大于其子节点（max-heap）。</p>
-<ul>
-<li><strong>push_heap</strong>：上溯操作，将新节点置于vector末尾，新节点与父节点比较，如果大于父节点就与其交换，上溯直至不需要交换或者已到达根节点。</li>
-<li><strong>pop_heap</strong>：下溯操作，将堆顶与vector末尾元素交换，然后再把堆顶节点与其较大子节点交换，下溯直至不需要交换或者已到达叶子节点。</li>
-<li><strong>sort_heap</strong>：不断使用pop_heap操作即可完成。</li>
+            <h3 id="1-STL-list是一个环状双向链表"><a href="#1-STL-list是一个环状双向链表" class="headerlink" title="1. STL list是一个环状双向链表"></a>1. STL list是一个环状双向链表</h3><p>只需要一个指针，便可以表示整个环状双向链表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">link_type node;</div></pre></td></tr></table></figure></p>
+<p>node指向链表尾部，尾部结点是一个空白结点（没有存储实际值的结点）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iterator begin() &#123; return (link_type)(node-&gt;next); &#125;</div><div class="line">iterator end()   &#123; return node; &#125;</div></pre></td></tr></table></figure></p>
+<p>对于一个空链表，node的构造如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node-&gt;next = node;</div><div class="line">node-&gt;pre  = node;</div></pre></td></tr></table></figure></p>
+<h3 id="2-iterator"><a href="#2-iterator" class="headerlink" title="2. iterator"></a>2. iterator</h3><ul>
+<li>list是双向链表，便于iterator的前移和后移设计</li>
+<li>list的插入和删除操作不会造成list迭代器失效</li>
 </ul>
-</li>
-<li><p><strong>priority queue</strong>：使用heap作为其底层实现机制，每次得到queue中优先级最高的原素，直接使用heap的pop即可。</p>
-</li>
-</ul>
-<h3 id="关联式容器"><a href="#关联式容器" class="headerlink" title="关联式容器"></a>关联式容器</h3><h5 id="1-基于BST的关联式容器"><a href="#1-基于BST的关联式容器" class="headerlink" title="1. 基于BST的关联式容器"></a>1. 基于BST的关联式容器</h5><ul>
-<li><a href="BST.md">BST</a></li>
-<li><a href="BST_AVL_TREE.md">AVL-Tree</a></li>
-<li><a href="BST_RB_TREE.md">RB-Tree</a></li>
-<li><strong>set</strong>：<ul>
-<li>set的元素值就是键值，其所有元素都会根据其键值自动被排序（中序遍历：左根右，前序：根左右，后序：左右根）</li>
-<li>由于set元素值就是键值，也不能通过set的迭代器改变set的元素值，删除set的键值将会严重影响set的结构</li>
-<li>set的删除和插入操作不会让其迭代器失效</li>
-</ul>
-</li>
-<li><strong>map</strong>：<ul>
-<li>map的元素值是Key和Value对，其中Key的值不允许修改（会破坏RB的结构），Value的值可以随意修改</li>
-<li>map的删除和插入操作同set一样也不会让其迭代器失效  </li>
-</ul>
-</li>
-<li><strong>multiset</strong>：multiset调用RB-tree的insert_equal()，让其可以插入重复元素</li>
-<li><strong>multimap</strong>：multimap调用RB-tree的insert_equal()，让其可以插入重复元素</li>
-</ul>
-<h5 id="2-基于Hashtable的关联式容器"><a href="#2-基于Hashtable的关联式容器" class="headerlink" title="2. 基于Hashtable的关联式容器"></a>2. 基于Hashtable的关联式容器</h5><p>基于<a href="hashtable.md">hash table</a>实现的容器有：hash_set、hash_map、hash_multiset和hash_multimap，其用法和基于RB-Tree的容器基本相同，但hash的关联式容器没有排序的功能（即使看似排序，也是因为散列表足够大，数据均匀分布在hashtable中，造成数据貌似排过序的假象）。</p>
+<h3 id="3-list不能使用STL算法的sort函数"><a href="#3-list不能使用STL算法的sort函数" class="headerlink" title="3. list不能使用STL算法的sort函数"></a>3. list不能使用STL算法的sort函数</h3><p>list不能使用STL算法的sort函数，只能使用list自带的sort函数。因为STL算法sort函数采用的随机访问迭代器（可以随机访问任意位置元素），而list迭代器只提供了++和–操作。</p>
 
         
         </div>
@@ -283,7 +255,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/STL/">STL</a><span class="category-list-count">2</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">7</span></li></ul>
         </div>
     </div>
 
@@ -292,16 +264,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
-        </div>
-    </div>
-
-    
-        
-    <div class="widget-wrap">
-        <h3 class="widget-title">标签</h3>
-        <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/">STL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vector/">vector</a><span class="tag-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">7</span></li></ul>
         </div>
     </div>
 
@@ -310,7 +273,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/STL/" style="font-size: 10px;">STL</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a>
+            <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/STL/" style="font-size: 20px;">STL</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/hash-table/" style="font-size: 10px;">hash-table</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/红黑树/" style="font-size: 10px;">红黑树</a>
         </div>
     </div>
 

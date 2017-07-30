@@ -3,19 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>分类: STL | LCP`S PERSONAL BLOG</title>
+    <title>STL deque | LCP`s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="LCP`S PERSONAL BLOG">
-<meta property="og:url" content="http://me@licp.me/categories/STL/index.html">
-<meta property="og:site_name" content="LCP`S PERSONAL BLOG">
+    <meta name="description" content="vector是单向开口的连续线性空间，deque是一种双向开口的连续线性空间。即：deque可以在头尾两端做插入与删除操作，虽然vector也可以实现类似的前端插入操作，但效率会异常低。 存储策略deque数据结构中，设计了一个指针数组map（类型为T**），map中存放了一系列指针，指向真实存放数据的区域（一大块连续的数据区域），称为缓冲区。SGI STL可以指定缓冲区大小，默认值0表示512b">
+<meta name="keywords" content="STL,deque">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL deque">
+<meta property="og:url" content="http://me@licp.me/2017/06/21/STL/deque/index.html">
+<meta property="og:site_name" content="LCP`s Blog">
+<meta property="og:description" content="vector是单向开口的连续线性空间，deque是一种双向开口的连续线性空间。即：deque可以在头尾两端做插入与删除操作，虽然vector也可以实现类似的前端插入操作，但效率会异常低。 存储策略deque数据结构中，设计了一个指针数组map（类型为T**），map中存放了一系列指针，指向真实存放数据的区域（一大块连续的数据区域），称为缓冲区。SGI STL可以指定缓冲区大小，默认值0表示512b">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-07-30T12:37:53.029Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LCP`S PERSONAL BLOG">
+<meta name="twitter:title" content="STL deque">
+<meta name="twitter:description" content="vector是单向开口的连续线性空间，deque是一种双向开口的连续线性空间。即：deque可以在头尾两端做插入与删除操作，虽然vector也可以实现类似的前端插入操作，但效率会异常低。 存储策略deque数据结构中，设计了一个指针数组map（类型为T**），map中存放了一系列指针，指向真实存放数据的区域（一大块连续的数据区域），称为缓冲区。SGI STL可以指定缓冲区大小，默认值0表示512b">
     
 
     
-        <link rel="alternate" href="/" title="LCP`S PERSONAL BLOG" type="application/atom+xml" />
+        <link rel="alternate" href="/" title="LCP`s Blog" type="application/atom+xml" />
     
 
     
@@ -48,13 +53,13 @@
         <div class="outer">
             <a href="/" id="logo">
                 
-                <span class="site-title">LCP`S PERSONAL BLOG</span>
+                <span class="site-title">LCP`s Blog</span>
             </a>
             <nav id="main-nav">
                 
                     <a class="main-nav-link" href="/.">Home</a>
                 
-                    <a class="main-nav-link" href="/archives">Archives</a>
+                    <a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a>
                 
             </nav>
             
@@ -113,7 +118,7 @@
                 
                     <td><a class="main-nav-link" href="/.">Home</a></td>
                 
-                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                    <td><a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a></td>
                 
                 <td>
                     
@@ -142,11 +147,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                2
+                7
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                2
+                8
                 <span>标签</span>
             </div>
         </div>
@@ -176,86 +181,67 @@
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">STL</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-STL/deque" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/20/STL/vector/">STL vector</a>
+        <h1 class="article-title" itemprop="name">
+            STL deque
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/06/20/STL/vector/">
-            <time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017-06-20</time>
+        <a href="/2017/06/21/STL/deque/">
+            <time datetime="2017-06-20T16:00:00.000Z" itemprop="datePublished">2017-06-21</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/STL/">STL</a>
+        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/vector/">vector</a>
+        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/deque/">deque</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/20/STL/STL/">STL</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>vector是单向开口的连续线性空间，deque是一种双向开口的连续线性空间。即：deque可以在头尾两端做插入与删除操作，虽然vector也可以实现类似的前端插入操作，但效率会异常低。</p>
+<h3 id="存储策略"><a href="#存储策略" class="headerlink" title="存储策略"></a>存储策略</h3><p>deque数据结构中，设计了一个指针数组<strong>map</strong>（类型为T**），map中存放了一系列指针，指向真实存放数据的区域（一大块连续的数据区域），称为缓冲区。<strong>SGI STL</strong>可以指定缓冲区大小，默认值0表示512bytes的缓冲区。</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>deque的迭代器属于Random Access Iterator，但它不是像vector那样简单的迭代器，设计较为复杂：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">deque_iterator</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	T* cur;           <span class="comment">// 指向当前具体的元素</span></div><div class="line">	T* first;         <span class="comment">// 指向当前缓冲区的头部</span></div><div class="line">	T* last;          <span class="comment">// 指向当前缓冲区的尾部</span></div><div class="line">	map_pointer node; <span class="comment">// 指向当前迭代器所在map的位置</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>deque迭代器设计比较复杂，导致其相关的运算效率较低。因此，对于可变长度的数列应尽量使用vector。例如，在对deque进行排序时，为了提高效率，可以先将数据放入vector中排好序过后，然后再放回deque中。</p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/06/20/STL/STL/">
-            <time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017-06-20</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/STL/">STL</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/vector/">vector</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
+    </div>
+</article>
+
+
     
-</div>
+    
+        <section id="comments">
+    <div id="uyan_frame"></div>
+</section>
+    
+
 </section>
             
                 
@@ -265,7 +251,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/STL/">STL</a><span class="category-list-count">2</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">7</span></li></ul>
         </div>
     </div>
 
@@ -274,16 +260,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
-        </div>
-    </div>
-
-    
-        
-    <div class="widget-wrap">
-        <h3 class="widget-title">标签</h3>
-        <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/">STL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vector/">vector</a><span class="tag-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">7</span></li></ul>
         </div>
     </div>
 
@@ -292,7 +269,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/STL/" style="font-size: 10px;">STL</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a>
+            <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/STL/" style="font-size: 20px;">STL</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/hash-table/" style="font-size: 10px;">hash-table</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/红黑树/" style="font-size: 10px;">红黑树</a>
         </div>
     </div>
 
