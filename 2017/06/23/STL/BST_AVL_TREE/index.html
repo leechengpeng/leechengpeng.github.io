@@ -14,17 +14,15 @@
 <meta property="og:description" content="AVL Tree是一个“加了额外平衡添加”的BST，AVL不能保证BST的深度为Log(N)，但它能保证BST中任意结点的左右子树深度相差最多为1。 如下图所示，将点11插如AVL-Tree中，此时灰色节点22和18违反了AVL-Tree的规则。只需要调整“插入点至根节点”路径上，平衡状态被破坏的节点中最深那个节点X(18)，便可以让整棵树重新保持平衡。具体流程如下图：  由于节点X最多拥有两个子">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0003.PNG">
-<meta property="og:image" content="http://me@licp.me/images/IMG_0005.PNG">
-<meta property="og:image" content="http://me@licp.me/images/IMG_0006.PNG">
-<meta property="og:updated_time" content="2017-07-30T13:32:37.071Z">
+<meta property="og:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0005.PNG">
+<meta property="og:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0006.PNG">
+<meta property="og:updated_time" content="2017-07-30T14:54:00.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AVL Tree (Adelson-Velskii-Landis Tree)">
 <meta name="twitter:description" content="AVL Tree是一个“加了额外平衡添加”的BST，AVL不能保证BST的深度为Log(N)，但它能保证BST中任意结点的左右子树深度相差最多为1。 如下图所示，将点11插如AVL-Tree中，此时灰色节点22和18违反了AVL-Tree的规则。只需要调整“插入点至根节点”路径上，平衡状态被破坏的节点中最深那个节点X(18)，便可以让整棵树重新保持平衡。具体流程如下图：  由于节点X最多拥有两个子">
 <meta name="twitter:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0003.PNG">
     
 
-    
-        <link rel="alternate" href="/" title="LCP`s Blog" type="application/atom+xml" />
     
 
     
@@ -171,12 +169,6 @@
                         </a>
                     </td>
                     
-                    <td>
-                        <a href="/" target="_blank" title="rss" class=tooltip>
-                            <i class="fa fa-rss"></i>
-                        </a>
-                    </td>
-                    
                 </tr>
             </table>
         </div>
@@ -235,11 +227,11 @@
 <ol>
 <li>插入点位于<strong>X</strong>的左子节点的左子树：左左</li>
 </ol>
-<p><img src="/images/IMG_0005.PNG" alt="左左"></p>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0005.PNG" alt="左左"></p>
 <ol>
 <li>插入点位于<strong>X</strong>的左子节点的右子树：左右</li>
 </ol>
-<p><img src="/images/IMG_0006.PNG" alt="右右"></p>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0006.PNG" alt="右右"></p>
 <ol>
 <li>插入点位于<strong>X</strong>的右子节点的左子树：右左</li>
 <li>插入点位于<strong>X</strong>的右子节点的右子树：右右</li>
