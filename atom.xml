@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LCP`s Blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://me@licp.me/"/>
+  <updated>2017-07-30T12:45:17.971Z</updated>
+  <id>http://me@licp.me/</id>
+  
+  <author>
+    <name>lichengpeng</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>哈希表（hash table）</title>
+    <link href="http://me@licp.me/2017/06/25/STL/hashtable/"/>
+    <id>http://me@licp.me/2017/06/25/STL/hashtable/</id>
+    <published>2017-06-24T16:00:00.000Z</published>
+    <updated>2017-07-30T12:45:17.971Z</updated>
+    
+    <content type="html"><![CDATA[<p>哈希表也称散列表，它可以通过哈希函数的映射很快的定位到待查询的数据位置。这种数据结构在插入、删除、搜索等操作上通常具有“常数时间”的表现。</p>
+<h3 id="1-哈希函数"><a href="#1-哈希函数" class="headerlink" title="1. 哈希函数"></a>1. 哈希函数</h3><p><strong>负载系数（overload factor）</strong>：表示存储元素个数除以哈希表大小，范围为[0,1]</p>
+<h4 id="为什么使用哈希函数？"><a href="#为什么使用哈希函数？" class="headerlink" title="为什么使用哈希函数？"></a>为什么使用哈希函数？</h4><p>哈希表常用数组表示。首先考虑如果不用哈希函数映射，可能会出现如下情况：只插入2和102400两个数据，这个时候数组的大小至少大于102400才能装下这两个数据（负载系数约等于零）。因此，可以通过某种方式把数据映射到一定范围，这种方式就叫哈希函数映射。如：将数据映射到[0,10)之间，此时就只需要大小10的数组即可装下这两个数据。如果插入的数据量超过10（即负载系数大于1），可以通过某种策略扩大数组，然后将原始重新调整到新的空间中。</p>
+<h3 id="2-冲突解决"><a href="#2-冲突解决" class="headerlink" title="2. 冲突解决"></a>2. 冲突解决</h3><ul>
+<li>线性探测：可能产生primary clustering</li>
+<li>二次探测：可能产生secondary clustering</li>
+<li>开链：使用list（桶）保存冲突的元素</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;哈希表也称散列表，它可以通过哈希函数的映射很快的定位到待查询的数据位置。这种数据结构在插入、删除、搜索等操作上通常具有“常数时间”的表现。&lt;/p&gt;
+&lt;h3 id=&quot;1-哈希函数&quot;&gt;&lt;a href=&quot;#1-哈希函数&quot; class=&quot;headerlink&quot; title=&quot;1. 
+    
+    </summary>
+    
+      <category term="Data Structure" scheme="http://me@licp.me/categories/Data-Structure/"/>
+    
+    
+      <category term="STL" scheme="http://me@licp.me/tags/STL/"/>
+    
+      <category term="hash-table" scheme="http://me@licp.me/tags/hash-table/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>红黑树（RB-Tree）</title>
+    <link href="http://me@licp.me/2017/06/24/STL/BST_RB_TREE/"/>
+    <id>http://me@licp.me/2017/06/24/STL/BST_RB_TREE/</id>
+    <published>2017-06-23T16:00:00.000Z</published>
+    <updated>2017-07-30T12:37:50.900Z</updated>
+    
+    <content type="html"><![CDATA[<p>红黑树是一棵平衡二叉搜索树，具有如下性质：</p>
+<ul>
+<li>任一节点非红即黑，根节点是黑色</li>
+<li>任一节点至NULL的任意路径，所含的黑色节点数必须相等 –&gt; <strong>规则一：新增节点必须为红色</strong></li>
+<li>如果节点为红色，其子结点必须为黑色 –&gt; <strong>规则二：新增节点的父节点必须为黑色</strong></li>
+</ul>
+<p>由上述规则可知：<strong>新增节点本身为红色，其父节点为黑色</strong>。如果新增节点不满足上述规则，就必须调整颜色同时旋转树形结构，以保证树的平衡。</p>
+<a id="more"></a>
+<h3 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h3><p>为了方便描述，做如下定义：</p>
+<ul>
+<li>插入点：<strong>X</strong></li>
+<li>X的父节点：<strong>P</strong></li>
+<li>X的伯父节点：<strong>S</strong></li>
+<li>X的祖父节点：<strong>G</strong></li>
+<li>X的曾祖父节点：<strong>GG</strong></li>
+<li>外侧插入：被插入点的左子节点</li>
+<li>内侧插入：被插入点的右子节点</li>
+</ul>
+<h4 id="情况1："><a href="#情况1：" class="headerlink" title="情况1："></a>情况1：</h4><p>RB-Tree为空树，直接插入根节点位置，并将插入点<strong>X</strong>涂成黑色（插入点毕为红色）</p>
+<h4 id="情况2："><a href="#情况2：" class="headerlink" title="情况2："></a>情况2：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为黑色，不违反任何性质，直接插入即可</p>
+<h4 id="情况3："><a href="#情况3：" class="headerlink" title="情况3："></a>情况3：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为红色，其伯父节点<strong>S</strong>为<strong>红色</strong>：</p>
+<ol>
+<li>直接将父节点<strong>P</strong>和伯父节点<strong>S</strong>涂成黑色，祖父节点<strong>G</strong>涂成红色（当前以祖父节点<strong>G</strong>为子树满足红黑树的要求）</li>
+<li>由于祖父节点<strong>G</strong>为红色（之前为黑色），此时有分为两种情况：<ol>
+<li>如果曾祖父节点<strong>GG</strong>为黑色，当前所有节点都满足红色树的规则，<strong>调整完成</strong></li>
+<li>如果曾祖父节点<strong>GG</strong>为红色，此时将祖父节点<strong>G</strong>及其子树当做一个为红色的子节点，<strong>视情况继续调整</strong><blockquote>
+<p>注：由于未旋转树形结构，因此插入点<strong>X</strong>为内外侧插入均可。同时，因为插入之前树为红黑树，所以此情况下的祖父结点<strong>G</strong>必定存在且为黑色，下同</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="情况4："><a href="#情况4：" class="headerlink" title="情况4："></a>情况4：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为红色，其伯父节点<strong>S</strong>为<strong>黑色</strong>且<strong>X</strong>为<strong>外侧插入</strong>：</p>
+<ol>
+<li>将<strong>P</strong>和<strong>G</strong>变色（P-&gt;黑色，G-&gt;红色）</li>
+<li>进行一次单旋转（此时P就相当于之前G的角色，因此需涂黑，G被涂红则是为了遵守红黑树的规则）</li>
+</ol>
+<h4 id="情况5："><a href="#情况5：" class="headerlink" title="情况5："></a>情况5：</h4><p>插入点<strong>X</strong>的父节点<strong>P</strong>为红色，其伯父节点<strong>S</strong>为<strong>黑色</strong>且<strong>X</strong>为<strong>内侧插入</strong>：</p>
+<ol>
+<li>现将节点X和节点P进行一次单旋转，颜色保持不变</li>
+<li>通过步骤1，此时的情况和情况4相同，按照情况4操作步骤即可</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;红黑树是一棵平衡二叉搜索树，具有如下性质：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任一节点非红即黑，根节点是黑色&lt;/li&gt;
+&lt;li&gt;任一节点至NULL的任意路径，所含的黑色节点数必须相等 –&amp;gt; &lt;strong&gt;规则一：新增节点必须为红色&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;如果节点为红色，其子结点必须为黑色 –&amp;gt; &lt;strong&gt;规则二：新增节点的父节点必须为黑色&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由上述规则可知：&lt;strong&gt;新增节点本身为红色，其父节点为黑色&lt;/strong&gt;。如果新增节点不满足上述规则，就必须调整颜色同时旋转树形结构，以保证树的平衡。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Data Structure" scheme="http://me@licp.me/categories/Data-Structure/"/>
+    
+    
+      <category term="STL" scheme="http://me@licp.me/tags/STL/"/>
+    
+      <category term="红黑树" scheme="http://me@licp.me/tags/%E7%BA%A2%E9%BB%91%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AVL Tree (Adelson-Velskii-Landis Tree)</title>
+    <link href="http://me@licp.me/2017/06/23/STL/BST_AVL_TREE/"/>
+    <id>http://me@licp.me/2017/06/23/STL/BST_AVL_TREE/</id>
+    <published>2017-06-22T16:00:00.000Z</published>
+    <updated>2017-07-30T14:59:16.215Z</updated>
+    
+    <content type="html"><![CDATA[<p>AVL Tree是一个“加了额外平衡添加”的BST，AVL不能保证BST的深度为Log(N)，但它能保证BST中任意结点的左右子树深度相差最多为1。</p>
+<a id="more"></a>
+<p>如下图所示，将点11插如AVL-Tree中，此时灰色节点22和18违反了AVL-Tree的规则。只需要调整“插入点至根节点”路径上，平衡状态被破坏的节点中最深那个节点<strong>X(18)</strong>，便可以让整棵树重新保持平衡。具体流程如下图：</p>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0003.PNG?raw=true" alt="non-AVL Tree"></p>
+<p>由于节点<strong>X</strong>最多拥有两个子节点，左右子节点的深度相差为2时就是不平衡状态。根据插入点的位置，将破坏平衡的情况分为四种：</p>
+<ol>
+<li>插入点位于<strong>X</strong>的左子节点的左子树：左左</li>
+</ol>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0005.PNG?raw=true" alt="左左"></p>
+<ol>
+<li>插入点位于<strong>X</strong>的左子节点的右子树：左右</li>
+</ol>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/IMG_0006.PNG?raw=true" alt="右右"></p>
+<ol>
+<li>插入点位于<strong>X</strong>的右子节点的左子树：右左</li>
+<li>插入点位于<strong>X</strong>的右子节点的右子树：右右</li>
+</ol>
+<p>根据上述四种不同情况，可以将其分为两类插入：</p>
+<ol>
+<li><strong>外侧插入</strong>：情况1和4，采用<strong>单旋转</strong>调整树形结构使之重新平衡</li>
+<li><strong>内侧插入</strong>：情况2和3，采用<strong>双旋转</strong>调整树形结构使之重新平衡</li>
+</ol>
+<p><strong>单旋转</strong>书P205，<strong>双旋转</strong>(两次单旋转)书P206。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;AVL Tree是一个“加了额外平衡添加”的BST，AVL不能保证BST的深度为Log(N)，但它能保证BST中任意结点的左右子树深度相差最多为1。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Data Structure" scheme="http://me@licp.me/categories/Data-Structure/"/>
+    
+    
+      <category term="STL" scheme="http://me@licp.me/tags/STL/"/>
+    
+      <category term="AVL" scheme="http://me@licp.me/tags/AVL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二叉搜索树（Binary Search Tree, BST）</title>
+    <link href="http://me@licp.me/2017/06/22/STL/BST/"/>
+    <id>http://me@licp.me/2017/06/22/STL/BST/</id>
+    <published>2017-06-21T16:00:00.000Z</published>
+    <updated>2017-07-30T12:37:46.939Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>二叉搜索树，也称有序二叉树，是指一棵树具有以下特点：</p>
+<ul>
+<li>若任意结点N的左子树不为空，则左子树上所有的结点的值均小于N的值</li>
+<li>若任意结点N的右子树不为空，其右子树上所有的结点的值均大于N的值</li>
+<li>任意结点N的左右子树都是一棵BST</li>
+<li>没有键值相等的结点（结点间的值不可能相等）</li>
+<li>沿着BST左结点一直检索可以得到最小值，沿着BST右结点一直检索可以得到最大值。<h3 id="插入与删除"><a href="#插入与删除" class="headerlink" title="插入与删除"></a>插入与删除</h3>BST的插入比较简单，按照BST的特点即可快速插入新的结点。删除操作稍微复杂一点，分为以下两种情况（参照STL源码剖析P202图5-6a和5-6b）：</li>
+</ul>
+<ol>
+<li>待删除结点M只有一个子结点/子树N，此时直接将N结点连接到M的父节点上即可</li>
+<li>待删除结点M有左右子结点/子树，此时将结点M<strong>右子树的最小值</strong>（该最小值大于M左子树的任意值，同时也小于其右子树的任意值）替换结点M即可</li>
+</ol>
+<a id="more"></a>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">namespace</span> LLL</div><div class="line">&#123;</div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">safe_delete</span><span class="params">(T*&amp; vPtr)</span></span></div><div class="line"><span class="function">	</span>&#123;</div><div class="line">		<span class="keyword">delete</span> vPtr;</div><div class="line">		vPtr = <span class="literal">nullptr</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">SNode</span></span></div><div class="line"><span class="class">	&#123;</span></div><div class="line">		T m_Obj;</div><div class="line">		SNode&lt;T&gt;* m_pLeft;</div><div class="line">		SNode&lt;T&gt;* m_pRight;</div><div class="line"></div><div class="line">		SNode(T vObj = T()) : m_Obj(vObj), m_pLeft(<span class="literal">nullptr</span>), m_pRight(<span class="literal">nullptr</span>) &#123;&#125;</div><div class="line">		~SNode()</div><div class="line">		&#123;</div><div class="line">			safe_delete(m_pLeft);</div><div class="line">			safe_delete(m_pRight);</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line"></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="class"><span class="keyword">class</span> <span class="title">CBST</span></span></div><div class="line"><span class="class">	&#123;</span></div><div class="line">	<span class="keyword">public</span>:</div><div class="line">		CBST() : m_pRoot() &#123;&#125;</div><div class="line">		~CBST() &#123; safe_delete(m_pRoot); &#125;</div><div class="line"></div><div class="line">		<span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">const</span> T vObj)</span></span>;</div><div class="line">		<span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(<span class="keyword">const</span> T vObj)</span> <span class="keyword">const</span></span>;</div><div class="line"></div><div class="line">		<span class="function">T <span class="title">maxmum</span><span class="params">()</span>  <span class="keyword">const</span></span>;</div><div class="line">		<span class="function">T <span class="title">minimum</span><span class="params">()</span> <span class="keyword">const</span></span>;</div><div class="line"></div><div class="line">	<span class="keyword">private</span>:</div><div class="line">		SNode&lt;T&gt;* m_pRoot;</div><div class="line"></div><div class="line">		<span class="keyword">const</span> SNode&lt;T&gt;* __maxmum(SNode&lt;T&gt;* vpNode)  <span class="keyword">const</span>;</div><div class="line">		<span class="keyword">const</span> SNode&lt;T&gt;* __minimum(SNode&lt;T&gt;* vpNode) <span class="keyword">const</span>;</div><div class="line">	&#125;;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">void</span> CBST&lt;T&gt;::insert(<span class="keyword">const</span> T vObj)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">if</span> (m_pRoot)</div><div class="line">		&#123;</div><div class="line">			SNode&lt;T&gt;* pNode = m_pRoot;</div><div class="line"></div><div class="line">			<span class="keyword">for</span> (;;)</div><div class="line">			&#123;</div><div class="line">				<span class="keyword">if</span> (pNode-&gt;m_Obj &gt; vObj)</div><div class="line">				&#123;</div><div class="line">					<span class="keyword">if</span> (pNode-&gt;m_pLeft == <span class="literal">nullptr</span>)</div><div class="line">					&#123;</div><div class="line">						pNode-&gt;m_pLeft = <span class="keyword">new</span> SNode&lt;T&gt;(vObj);</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line"></div><div class="line">					pNode = pNode-&gt;m_pLeft;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (pNode-&gt;m_Obj &lt; vObj)</div><div class="line">				&#123;</div><div class="line">					<span class="keyword">if</span> (pNode-&gt;m_pRight == <span class="literal">nullptr</span>)</div><div class="line">					&#123;</div><div class="line">						pNode-&gt;m_pRight = <span class="keyword">new</span> SNode&lt;T&gt;(vObj);</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line"></div><div class="line">					pNode = pNode-&gt;m_pRight;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span></div><div class="line">				&#123;</div><div class="line">					<span class="keyword">break</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span></div><div class="line">		&#123;</div><div class="line">			m_pRoot = <span class="keyword">new</span> SNode&lt;T&gt;(vObj);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">bool</span> CBST&lt;T&gt;::search(<span class="keyword">const</span> T vObj) <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">auto</span> IsExist = <span class="literal">false</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">auto</span> pNode = m_pRoot; pNode != <span class="literal">nullptr</span>;)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span> (pNode-&gt;m_Obj &gt; vObj)</div><div class="line">			&#123;</div><div class="line">				pNode = pNode-&gt;m_pLeft;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (pNode-&gt;m_Obj &lt; vObj)</div><div class="line">			&#123;</div><div class="line">				pNode = pNode-&gt;m_pRight;</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">else</span></div><div class="line">			&#123;</div><div class="line">				IsExist = <span class="literal">true</span>;</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> IsExist;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">const</span> SNode&lt;T&gt;* CBST&lt;T&gt;::__maxmum(SNode&lt;T&gt;* vpNode) <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">while</span> (vpNode-&gt;m_pRight) &#123; vpNode = vpNode-&gt;m_pRight; &#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> vpNode;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">const</span> SNode&lt;T&gt;* CBST&lt;T&gt;::__minimum(SNode&lt;T&gt;* vpNode) <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">while</span> (vpNode-&gt;m_pLeft) &#123; vpNode = vpNode-&gt;m_pLeft; &#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> vpNode;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	<span class="keyword">inline</span> T CBST&lt;T&gt;::maxmum() <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		_ASSERT(m_pRoot);</div><div class="line"></div><div class="line">		<span class="keyword">return</span> __maxmum(m_pRoot)-&gt;m_Obj;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// ***************************************************</span></div><div class="line">	<span class="comment">// FUNCTION:</span></div><div class="line">	<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line">	T CBST&lt;T&gt;::minimum() <span class="keyword">const</span></div><div class="line">	&#123;</div><div class="line">		_ASSERT(m_pRoot);</div><div class="line"></div><div class="line">		<span class="keyword">return</span> __minimum(m_pRoot)-&gt;m_Obj;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//FUNCTION: detect the memory leak in DEBUG mode</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">installMemoryLeakDetector</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="comment">// Enable run-time memory check for debug builds.</span></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(DEBUG) | defined(_DEBUG)</span></div><div class="line">	<span class="comment">//_CRTDBG_LEAK_CHECK_DF: Perform automatic leak checking at program exit through a call to _CrtDumpMemoryLeaks and generate an error </span></div><div class="line">	<span class="comment">//report if the application failed to free all the memory it allocated. OFF: Do not automatically perform leak checking at program exit.</span></div><div class="line">	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);</div><div class="line"></div><div class="line">	<span class="comment">//the following statement is used to trigger a breakpoint when memory leak happens</span></div><div class="line">	<span class="comment">//comment it out if there is no memory leak report;</span></div><div class="line">	<span class="comment">//_crtBreakAlloc = 30372;</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	installMemoryLeakDetector();</div><div class="line"></div><div class="line">	LLL::CBST&lt;<span class="keyword">int</span>&gt; BST;</div><div class="line">	BST.insert(<span class="number">15</span>);</div><div class="line">	BST.insert(<span class="number">1</span>);</div><div class="line">	BST.insert(<span class="number">22</span>);</div><div class="line">	BST.insert(<span class="number">-2</span>);</div><div class="line">	BST.insert(<span class="number">15</span>);</div><div class="line">	BST.insert(<span class="number">12</span>);</div><div class="line">	BST.insert(<span class="number">25</span>);</div><div class="line"></div><div class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Maxmux: "</span> &lt;&lt; BST.maxmum() &lt;&lt; <span class="string">", Minimum: "</span>&lt;&lt; BST.minimum() &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">	<span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">bool</span>&gt; Tests = &#123; </div><div class="line">		<span class="comment">// Exist</span></div><div class="line">		&#123; <span class="number">15</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">1</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">22</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">-2</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">12</span>, <span class="literal">true</span> &#125;, &#123; <span class="number">25</span>, <span class="literal">true</span> &#125;,</div><div class="line">		<span class="comment">// Does not exist </span></div><div class="line">		&#123;<span class="number">-50</span>, <span class="literal">false</span>&#125;, &#123; <span class="number">-5</span>, <span class="literal">false</span> &#125;, &#123;<span class="number">-1</span>, <span class="literal">false</span>&#125;, &#123;<span class="number">0</span>, <span class="literal">false</span>&#125;, &#123; <span class="number">5</span>, <span class="literal">false</span> &#125;, &#123; <span class="number">16</span>, <span class="literal">false</span> &#125;, &#123; <span class="number">100</span>, <span class="literal">false</span> &#125;,</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> Test : Tests) &#123; _ASSERT(BST.search(Test.first) == Test.second); &#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="平衡二叉搜索树（Balance-BST）"><a href="#平衡二叉搜索树（Balance-BST）" class="headerlink" title="平衡二叉搜索树（Balance BST）"></a>平衡二叉搜索树（Balance BST）</h2><p>由于输入数据不够随机或者插入删除操作，常常会导致BST不够平衡（平衡：没有任意结点的深度相对其他结点过深），而不平衡的BST会对搜索效率造成极大的影响。</p>
+<p>根据不同的平衡条件实现方式，大概有如下几种平衡二叉搜索树：</p>
+<ul>
+<li>AVL tree</li>
+<li>RB tree</li>
+<li>AA tree</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;特点&quot;&gt;&lt;a href=&quot;#特点&quot; class=&quot;headerlink&quot; title=&quot;特点&quot;&gt;&lt;/a&gt;特点&lt;/h2&gt;&lt;p&gt;二叉搜索树，也称有序二叉树，是指一棵树具有以下特点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若任意结点N的左子树不为空，则左子树上所有的结点的值均小于N的值&lt;/li&gt;
+&lt;li&gt;若任意结点N的右子树不为空，其右子树上所有的结点的值均大于N的值&lt;/li&gt;
+&lt;li&gt;任意结点N的左右子树都是一棵BST&lt;/li&gt;
+&lt;li&gt;没有键值相等的结点（结点间的值不可能相等）&lt;/li&gt;
+&lt;li&gt;沿着BST左结点一直检索可以得到最小值，沿着BST右结点一直检索可以得到最大值。&lt;h3 id=&quot;插入与删除&quot;&gt;&lt;a href=&quot;#插入与删除&quot; class=&quot;headerlink&quot; title=&quot;插入与删除&quot;&gt;&lt;/a&gt;插入与删除&lt;/h3&gt;BST的插入比较简单，按照BST的特点即可快速插入新的结点。删除操作稍微复杂一点，分为以下两种情况（参照STL源码剖析P202图5-6a和5-6b）：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;待删除结点M只有一个子结点/子树N，此时直接将N结点连接到M的父节点上即可&lt;/li&gt;
+&lt;li&gt;待删除结点M有左右子结点/子树，此时将结点M&lt;strong&gt;右子树的最小值&lt;/strong&gt;（该最小值大于M左子树的任意值，同时也小于其右子树的任意值）替换结点M即可&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="Data Structure" scheme="http://me@licp.me/categories/Data-Structure/"/>
+    
+    
+      <category term="STL" scheme="http://me@licp.me/tags/STL/"/>
+    
+      <category term="BST" scheme="http://me@licp.me/tags/BST/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STL deque</title>
+    <link href="http://me@licp.me/2017/06/21/STL/deque/"/>
+    <id>http://me@licp.me/2017/06/21/STL/deque/</id>
+    <published>2017-06-20T16:00:00.000Z</published>
+    <updated>2017-07-30T12:37:53.029Z</updated>
+    
+    <content type="html"><![CDATA[<p>vector是单向开口的连续线性空间，deque是一种双向开口的连续线性空间。即：deque可以在头尾两端做插入与删除操作，虽然vector也可以实现类似的前端插入操作，但效率会异常低。</p>
+<h3 id="存储策略"><a href="#存储策略" class="headerlink" title="存储策略"></a>存储策略</h3><p>deque数据结构中，设计了一个指针数组<strong>map</strong>（类型为T**），map中存放了一系列指针，指向真实存放数据的区域（一大块连续的数据区域），称为缓冲区。<strong>SGI STL</strong>可以指定缓冲区大小，默认值0表示512bytes的缓冲区。</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>deque的迭代器属于Random Access Iterator，但它不是像vector那样简单的迭代器，设计较为复杂：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">deque_iterator</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	T* cur;           <span class="comment">// 指向当前具体的元素</span></div><div class="line">	T* first;         <span class="comment">// 指向当前缓冲区的头部</span></div><div class="line">	T* last;          <span class="comment">// 指向当前缓冲区的尾部</span></div><div class="line">	map_pointer node; <span class="comment">// 指向当前迭代器所在map的位置</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>deque迭代器设计比较复杂，导致其相关的运算效率较低。因此，对于可变长度的数列应尽量使用vector。例如，在对deque进行排序时，为了提高效率，可以先将数据放入vector中排好序过后，然后再放回deque中。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;vector是单向开口的连续线性空间，deque是一种双向开口的连续线性空间。即：deque可以在头尾两端做插入与删除操作，虽然vector也可以实现类似的前端插入操作，但效率会异常低。&lt;/p&gt;
+&lt;h3 id=&quot;存储策略&quot;&gt;&lt;a href=&quot;#存储策略&quot; class=&quot;he
+    
+    </summary>
+    
+      <category term="Data Structure" scheme="http://me@licp.me/categories/Data-Structure/"/>
+    
+    
+      <category term="STL" scheme="http://me@licp.me/tags/STL/"/>
+    
+      <category term="deque" scheme="http://me@licp.me/tags/deque/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STL list</title>
+    <link href="http://me@licp.me/2017/06/20/STL/list/"/>
+    <id>http://me@licp.me/2017/06/20/STL/list/</id>
+    <published>2017-06-19T16:00:00.000Z</published>
+    <updated>2017-07-30T12:45:15.908Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-STL-list是一个环状双向链表"><a href="#1-STL-list是一个环状双向链表" class="headerlink" title="1. STL list是一个环状双向链表"></a>1. STL list是一个环状双向链表</h3><p>只需要一个指针，便可以表示整个环状双向链表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">link_type node;</div></pre></td></tr></table></figure></p>
+<p>node指向链表尾部，尾部结点是一个空白结点（没有存储实际值的结点）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iterator begin() &#123; return (link_type)(node-&gt;next); &#125;</div><div class="line">iterator end()   &#123; return node; &#125;</div></pre></td></tr></table></figure></p>
+<p>对于一个空链表，node的构造如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node-&gt;next = node;</div><div class="line">node-&gt;pre  = node;</div></pre></td></tr></table></figure></p>
+<h3 id="2-iterator"><a href="#2-iterator" class="headerlink" title="2. iterator"></a>2. iterator</h3><ul>
+<li>list是双向链表，便于iterator的前移和后移设计</li>
+<li>list的插入和删除操作不会造成list迭代器失效</li>
+</ul>
+<h3 id="3-list不能使用STL算法的sort函数"><a href="#3-list不能使用STL算法的sort函数" class="headerlink" title="3. list不能使用STL算法的sort函数"></a>3. list不能使用STL算法的sort函数</h3><p>list不能使用STL算法的sort函数，只能使用list自带的sort函数。因为STL算法sort函数采用的随机访问迭代器（可以随机访问任意位置元素），而list迭代器只提供了++和–操作。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-STL-list是一个环状双向链表&quot;&gt;&lt;a href=&quot;#1-STL-list是一个环状双向链表&quot; class=&quot;headerlink&quot; title=&quot;1. STL list是一个环状双向链表&quot;&gt;&lt;/a&gt;1. STL list是一个环状双向链表&lt;/h3&gt;&lt;p&gt;
+    
+    </summary>
+    
+      <category term="Data Structure" scheme="http://me@licp.me/categories/Data-Structure/"/>
+    
+    
+      <category term="STL" scheme="http://me@licp.me/tags/STL/"/>
+    
+      <category term="list" scheme="http://me@licp.me/tags/list/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>STL vector</title>
+    <link href="http://me@licp.me/2017/06/20/STL/vector/"/>
+    <id>http://me@licp.me/2017/06/20/STL/vector/</id>
+    <published>2017-06-19T16:00:00.000Z</published>
+    <updated>2017-07-30T12:37:44.981Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-iterator"><a href="#1-iterator" class="headerlink" title="1. iterator"></a>1. iterator</h3><p>vector<t>的迭代器实际上是其类型T的指针，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">typedef T* iterator;</div></pre></td></tr></table></figure></t></p>
+<p>因为vector维护的是线性空间，普通指针即可满足迭代器的所有操作：*、-&gt;、++、–、-、+、-=、+=</p>
+<h3 id="2-vector的容量-capacity-大于其实际存储量-size"><a href="#2-vector的容量-capacity-大于其实际存储量-size" class="headerlink" title="2. vector的容量(capacity)大于其实际存储量(size)"></a>2. vector的容量(capacity)大于其实际存储量(size)</h3><p>为了提高vector的空间配置效率，其实际分配的大小通常比用户需求量更大一些。<strong>SGI STL</strong>的分配规则为：</p>
+<ul>
+<li>如果vector中的容量为0，则将其容量扩容为1</li>
+<li>如果vector中的容量大于0，则配置其容量为原大小的2倍。</li>
+</ul>
+<p>按照2倍的分配原则，其前半段用来放置原有数据，后半段用来放置新数据。</p>
+<p>不同的STL实现库可能分配原则稍有不同，但都会通过某种策略进行扩容。需要特别注意的是：<strong>一旦vector重新分配空间，原有数据会被转移到新分配的空间，指向原vector的迭代器都会失效</strong>。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-iterator&quot;&gt;&lt;a href=&quot;#1-iterator&quot; class=&quot;headerlink&quot; title=&quot;1. iterator&quot;&gt;&lt;/a&gt;1. iterator&lt;/h3&gt;&lt;p&gt;vector&lt;t&gt;的迭代器实际上是其类型T的指针，定义如下：&lt;br&gt;&lt;f
+    
+    </summary>
+    
+      <category term="Data Structure" scheme="http://me@licp.me/categories/Data-Structure/"/>
+    
+    
+      <category term="STL" scheme="http://me@licp.me/tags/STL/"/>
+    
+      <category term="vector" scheme="http://me@licp.me/tags/vector/"/>
+    
+  </entry>
+  
+</feed>
