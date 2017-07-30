@@ -9,7 +9,7 @@
 <meta property="og:title" content="LCP`S PERSONAL BLOG">
 <meta property="og:url" content="http://me@licp.me/index.html">
 <meta property="og:site_name" content="LCP`S PERSONAL BLOG">
-<meta property="og:locale" content="zh-cn">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LCP`S PERSONAL BLOG">
     
@@ -56,12 +56,6 @@
                 
                     <a class="main-nav-link" href="/archives">Archives</a>
                 
-                    <a class="main-nav-link" href="/categories">Categories</a>
-                
-                    <a class="main-nav-link" href="/tags">Tags</a>
-                
-                    <a class="main-nav-link" href="/about">About</a>
-                
             </nav>
             
                 
@@ -77,14 +71,14 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -96,11 +90,11 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
@@ -121,16 +115,10 @@
                 
                     <td><a class="main-nav-link" href="/archives">Archives</a></td>
                 
-                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
-                
-                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
-                
-                    <td><a class="main-nav-link" href="/about">About</a></td>
-                
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
     </div>
 
                 </td>
@@ -150,16 +138,16 @@
             <h2 id="name">Li Chengpeng</h2>
             <h3 id="title">CG &amp; Excavator Tech</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Mars, China</span>
-            <a id="follow" target="_blank" href="https://github.com/leechengpeng">FOLLOW</a>
+            <a id="follow" target="_blank" href="https://github.com/leechengpeng">关注我</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                1
-                <span>post</span>
+                2
+                <span>文章</span>
             </div>
             <div class="article-info-block">
-                0
-                <span>tag</span>
+                2
+                <span>标签</span>
             </div>
         </div>
         
@@ -219,6 +207,11 @@
     </div>
 
                         
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/vector/">vector</a>
+    </div>
+
                     </div>
                 
             </header>
@@ -226,94 +219,107 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><h3 id="1-iterator"><a href="#1-iterator" class="headerlink" title="1. iterator"></a>1. iterator</h3><p>vector<t>的迭代器实际上是其类型T的指针，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">typedef T* iterator;</div></pre></td></tr></table></figure></t></p>
-<p>因为vector维护的是线性空间，普通指针即可满足迭代器的所有操作：*、-&gt;、++、–、-、+、-=、+=</p></p>
-            <p class="article-more-link">
-                <a href="/2017/06/20/STL/vector/#more">Read More</a>
-            </p>
+            
+            <h3 id="1-iterator"><a href="#1-iterator" class="headerlink" title="1. iterator"></a>1. iterator</h3><p>vector<t>的迭代器实际上是其类型T的指针，定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">typedef T* iterator;</div></pre></td></tr></table></figure></t></p>
+<p>因为vector维护的是线性空间，普通指针即可满足迭代器的所有操作：*、-&gt;、++、–、-、+、-=、+=</p>
+<h3 id="2-vector的容量-capacity-大于其实际存储量-size"><a href="#2-vector的容量-capacity-大于其实际存储量-size" class="headerlink" title="2. vector的容量(capacity)大于其实际存储量(size)"></a>2. vector的容量(capacity)大于其实际存储量(size)</h3><p>为了提高vector的空间配置效率，其实际分配的大小通常比用户需求量更大一些。<strong>SGI STL</strong>的分配规则为：</p>
+<ul>
+<li>如果vector中的容量为0，则将其容量扩容为1</li>
+<li>如果vector中的容量大于0，则配置其容量为原大小的2倍。</li>
+</ul>
+<p>按照2倍的分配原则，其前半段用来放置原有数据，后半段用来放置新数据。</p>
+<p>不同的STL实现库可能分配原则稍有不同，但都会通过某种策略进行扩容。需要特别注意的是：<strong>一旦vector重新分配空间，原有数据会被转移到新分配的空间，指向原vector的迭代器都会失效</strong>。</p>
+
         
         </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://me@licp.me/2017/06/20/STL/vector/" data-id="cj5qjmncq00018w7f3dwyp5di" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="http://me@licp.me/2017/06/20/STL/vector/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://me@licp.me/2017/06/20/STL/vector/">Comments</a>
-    
-
-        </footer>
     </div>
+</article>
+
+
+
+    <article id="post-STL/STL" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
     
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/06/20/STL/STL/">STL</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/06/20/STL/STL/">
+            <time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017-06-20</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/STL/">STL</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/vector/">vector</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="序列式容器"><a href="#序列式容器" class="headerlink" title="序列式容器"></a>序列式容器</h3><ul>
+<li><a href="vector.md">vector</a></li>
+<li><a href="list.md">list</a></li>
+<li><a href="deque.md">deque</a></li>
+<li><p><strong>stack&amp;queue</strong>：stack是一种<strong>先进后出</strong>的数据结构，而queue则是一种<strong>先进先出</strong>的数据结构。stack&amp;queue都是以其他容器作为低层实现，这种方法叫做适配器（Adapter），因此，STL stack&amp;queue并不被归类为容器，而是被归类为容器适配器（Container Adapter）。两种容器都只对其一端进行操作，因此，它们都没有遍历操作（没有迭代器）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 注：stack只对其一端进行操作，因此还可以使用std::vector&lt;int&gt;作为其低层实现。</span></div><div class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;&gt; IStack; <span class="comment">// 默认</span></div><div class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;&gt;  IStack; <span class="comment">// 以std::list&lt;int&gt;作为stack的低层容器</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><a href="heap.md">heap </a>：一棵完全二叉树，直接使用vector表示树形关系，特点是父节点都大于其子节点（max-heap）。</p>
+<ul>
+<li><strong>push_heap</strong>：上溯操作，将新节点置于vector末尾，新节点与父节点比较，如果大于父节点就与其交换，上溯直至不需要交换或者已到达根节点。</li>
+<li><strong>pop_heap</strong>：下溯操作，将堆顶与vector末尾元素交换，然后再把堆顶节点与其较大子节点交换，下溯直至不需要交换或者已到达叶子节点。</li>
+<li><strong>sort_heap</strong>：不断使用pop_heap操作即可完成。</li>
+</ul>
+</li>
+<li><p><strong>priority queue</strong>：使用heap作为其底层实现机制，每次得到queue中优先级最高的原素，直接使用heap的pop即可。</p>
+</li>
+</ul>
+<h3 id="关联式容器"><a href="#关联式容器" class="headerlink" title="关联式容器"></a>关联式容器</h3><h5 id="1-基于BST的关联式容器"><a href="#1-基于BST的关联式容器" class="headerlink" title="1. 基于BST的关联式容器"></a>1. 基于BST的关联式容器</h5><ul>
+<li><a href="BST.md">BST</a></li>
+<li><a href="BST_AVL_TREE.md">AVL-Tree</a></li>
+<li><a href="BST_RB_TREE.md">RB-Tree</a></li>
+<li><strong>set</strong>：<ul>
+<li>set的元素值就是键值，其所有元素都会根据其键值自动被排序（中序遍历：左根右，前序：根左右，后序：左右根）</li>
+<li>由于set元素值就是键值，也不能通过set的迭代器改变set的元素值，删除set的键值将会严重影响set的结构</li>
+<li>set的删除和插入操作不会让其迭代器失效</li>
+</ul>
+</li>
+<li><strong>map</strong>：<ul>
+<li>map的元素值是Key和Value对，其中Key的值不允许修改（会破坏RB的结构），Value的值可以随意修改</li>
+<li>map的删除和插入操作同set一样也不会让其迭代器失效  </li>
+</ul>
+</li>
+<li><strong>multiset</strong>：multiset调用RB-tree的insert_equal()，让其可以插入重复元素</li>
+<li><strong>multimap</strong>：multimap调用RB-tree的insert_equal()，让其可以插入重复元素</li>
+</ul>
+<h5 id="2-基于Hashtable的关联式容器"><a href="#2-基于Hashtable的关联式容器" class="headerlink" title="2. 基于Hashtable的关联式容器"></a>2. 基于Hashtable的关联式容器</h5><p>基于<a href="hashtable.md">hash table</a>实现的容器有：hash_set、hash_map、hash_multiset和hash_multimap，其用法和基于RB-Tree的容器基本相同，但hash的关联式容器没有排序的功能（即使看似排序，也是因为散列表足够大，数据均匀分布在hashtable中，造成数据貌似排过序的假象）。</p>
+
+        
+        </div>
+    </div>
 </article>
 
 
@@ -324,59 +330,43 @@
    
         
     <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
+        <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/06/20/STL/vector/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/STL/">STL</a></p>
-                            <p class="item-title"><a href="/2017/06/20/STL/vector/" class="title">STL vector</a></p>
-                            <p class="item-date"><time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017-06-20</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/STL/">STL</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">categories</h3>
+        <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/STL/">STL</a><span class="category-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">archives</h3>
+        <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/STL/">STL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vector/">vector</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 
     
         
-    
-        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/STL/" style="font-size: 10px;">STL</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a>
+        </div>
+    </div>
+
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
+        <h3 class="widget-title">链接</h3>
         <div class="widget">
             <ul>
                 
@@ -404,18 +394,7 @@
 </footer>
         
     
-    <script>
-    var disqus_config = function () {
-        
-        this.page.identifier = '';
-    };
-    (function() { 
-        var d = document, s = d.createElement('script');  
-        s.src = '//' + 'hexo-theme-icarus' + '.disqus.com/count.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2140290"></script>
 
 
 
