@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>C++虚函数表 | LCP`s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="C++类的虚函数存放在一张名为虚函数表的表中，子类通过重写（override）虚函数表中的函数来实现C++的多态。">
+<meta name="keywords" content="C++,virtual-table">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++虚函数表">
+<meta property="og:url" content="http://me@licp.me/2017/08/01/CPP/VirutalTable/index.html">
+<meta property="og:site_name" content="LCP`s Blog">
+<meta property="og:description" content="C++类的虚函数存放在一张名为虚函数表的表中，子类通过重写（override）虚函数表中的函数来实现C++的多态。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/vt1.png?raw=true">
+<meta property="og:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/vt2.png?raw=true">
+<meta property="og:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/vt3.png?raw=true">
+<meta property="og:updated_time" content="2017-08-01T15:11:22.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++虚函数表">
+<meta name="twitter:description" content="C++类的虚函数存放在一张名为虚函数表的表中，子类通过重写（override）虚函数表中的函数来实现C++的多态。">
+<meta name="twitter:image" content="https://github.com/leechengpeng/Note/blob/master/Resources/Images/vt1.png?raw=true">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LCP`s Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                
+                <span class="site-title">LCP`s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a>
+                
+                    <a class="main-nav-link" href="/categories/C++">C++</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories/C++">C++</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">Li Chengpeng</h2>
+            <h3 id="title">CG &amp; Excavator Tech</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Mars, China</span>
+            <a id="follow" target="_blank" href="https://github.com/leechengpeng">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                9
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                13
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/leechengpeng" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-CPP/VirutalTable" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            C++虚函数表
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/08/01/CPP/VirutalTable/">
+            <time datetime="2017-07-31T16:00:00.000Z" itemprop="datePublished">2017-08-01</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C/">C++</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/C/">C++</a>, <a class="tag-link" href="/tags/virtual-table/">virtual-table</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>C++类的虚函数存放在一张名为<strong>虚函数表</strong>的表中，<strong>子类</strong>通过重写（override）虚函数表中的函数来实现C++的<strong>多态</strong>。<br><a id="more"></a></p>
+<h3 id="1-虚函数表"><a href="#1-虚函数表" class="headerlink" title="1. 虚函数表"></a>1. 虚函数表</h3><p>首先，定义一个带有虚函数的基类<code>Shape</code>：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">area</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Shape Area"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; &#125;</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">circumference</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Shape circumference"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>对象<code>shape</code>所对应的虚函数表<code>pVirtualTable</code>为：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Shape shape;</div><div class="line"><span class="keyword">int</span>* pVirtualTable = *<span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">int</span>**&gt;(&amp;shape);</div></pre></td></tr></table></figure></p>
+<p>从虚函数表<code>pVirtualTable</code>中取到其存放的虚函数指针：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(*pFun)</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">pFun pArea = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">0</span>));</div><div class="line">pFun pCircumference = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">1</span>));</div><div class="line"></div><div class="line">pArea();</div><div class="line">pCircumference();</div></pre></td></tr></table></figure></p>
+<p>VS2013运行结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; Shape Area</div><div class="line">&gt; Shape circumference</div></pre></td></tr></table></figure></p>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/vt1.png?raw=true" alt="虚函数表"></p>
+<h3 id="2-无覆盖继承"><a href="#2-无覆盖继承" class="headerlink" title="2. 无覆盖继承"></a>2. 无覆盖继承</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> :</span> <span class="keyword">public</span> Shape</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">description</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"This is a triangle"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Shape* pTriangle = <span class="keyword">new</span> Triangle();</div><div class="line"><span class="keyword">int</span>* pVirtualTable = *<span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">int</span>**&gt;(&amp;(*pTriangle));</div><div class="line"></div><div class="line">pFun pArea = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">0</span>));</div><div class="line">pFun pCircumference = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">1</span>));</div><div class="line">pFun pDescription = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">2</span>));</div><div class="line"></div><div class="line">pArea();</div><div class="line">pCircumference();</div><div class="line">pDescription();</div></pre></td></tr></table></figure>
+<p>VS2013运行结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; Shape Area</div><div class="line">&gt; Shape circumference</div><div class="line">&gt; This is a triangle</div></pre></td></tr></table></figure></p>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/vt2.png?raw=true" alt="虚函数表"></p>
+<p>由上述代码可知无覆盖继承有以下特点：</p>
+<ol>
+<li>虚函数按照其<strong>声明顺序</strong>存放于表中</li>
+<li>父类的虚函数在子类的虚函数前面</li>
+</ol>
+<h3 id="3-有覆盖继承"><a href="#3-有覆盖继承" class="headerlink" title="3. 有覆盖继承"></a>3. 有覆盖继承</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> :</span> <span class="keyword">public</span> Shape</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">circumference</span><span class="params">()</span> override </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Rectangle circumference"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; &#125;</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">description</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"This is a rectangle"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Shape* pRectangle = <span class="keyword">new</span> Rectangle();</div><div class="line"><span class="keyword">int</span>* pVirtualTable = *<span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">int</span>**&gt;(&amp;(*pRectangle));</div><div class="line"></div><div class="line">pFun pArea = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">0</span>));</div><div class="line">pFun pCircumference = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">1</span>));</div><div class="line">pFun pDescription = <span class="keyword">reinterpret_cast</span>&lt;pFun&gt;(*(pVirtualTable + <span class="number">2</span>));</div><div class="line"></div><div class="line">pArea();</div><div class="line">pCircumference();</div><div class="line">pDescription();</div></pre></td></tr></table></figure>
+<p>VS2013运行结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; Shape Area</div><div class="line">&gt; Rectangle circumference</div><div class="line">&gt; This is a triangle</div></pre></td></tr></table></figure></p>
+<p><img src="https://github.com/leechengpeng/Note/blob/master/Resources/Images/vt3.png?raw=true" alt="虚函数表"></p>
+<p>由上述代码可知有覆盖继承有以下特点：</p>
+<ol>
+<li>覆盖虚函数会覆盖原有父类的虚函数</li>
+</ol>
+<p>通过有覆盖继承，我们就可以看到类似于下面的代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Base* pDerived = <span class="keyword">new</span> Derive();</div><div class="line">pDerived-&gt;Fun(); <span class="comment">// Fun被Derive类覆盖</span></div></pre></td></tr></table></figure></p>
+<p>由<code>pDerived</code>指向的虚函数表中<code>Fun()</code>的位置已经被<code>Derive::Fun()</code>函数地址所取代，实际调用时也就调用了子类对应的<code>Fun</code>函数。这样就实现了多态。</p>
+<h3 id="4-多重继承"><a href="#4-多重继承" class="headerlink" title="4. 多重继承"></a>4. 多重继承</h3><p>由上述实例，基本的原理基本都已经讲解清楚，再次不再赘述多重继承的代码。多重继承的有覆盖和无覆盖有以下特点：</p>
+<ol>
+<li>子类一次存放多个父类的虚函数表</li>
+<li>子类成员函数被放到第一个父类的虚函数表中</li>
+<li>子类覆盖函数会替换其对应的父类对应虚函数</li>
+</ol>
+<blockquote>
+<p>参考：<a href="http://blog.csdn.net/haoel/article/details/1948051" target="_blank" rel="external">http://blog.csdn.net/haoel/article/details/1948051</a></p>
+</blockquote>
+
+        
+        </div>
+    </div>
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="uyan_frame"></div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/OS/" style="font-size: 10px;">OS</a> <a href="/tags/STL/" style="font-size: 20px;">STL</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/hash-table/" style="font-size: 10px;">hash-table</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/process/" style="font-size: 10px;">process</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/virtual-table/" style="font-size: 10px;">virtual-table</a> <a href="/tags/红黑树/" style="font-size: 10px;">红黑树</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://henng.com/">Henng</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 lichengpeng<br>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2140290"></script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -3,15 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>归档 | LCP`s Blog</title>
+    <title>进程和线程 | LCP`s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="LCP`s Blog">
-<meta property="og:url" content="http://me@licp.me/archives/page/2/index.html">
+    <meta name="description" content="1. 进程和线程 进程是程序一次执行的实例，是操作系统资源分配的基本单位（寄存器、堆栈、上下文等）。 线程是轻量级的进程，是操作系统调度和执行的基本单位。 一个线程只能属于一个进程，一个进程可以创建多个线程。 线程相对进程切换的所需开销较小。  2. 进程/线程间同步机制 临界区（Critical Section）：线程串行的访问公共资源或代码，任意时刻只允许一个线程对共享资源进行访问，其它线程想">
+<meta name="keywords" content="OS,process,thread">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程和线程">
+<meta property="og:url" content="http://me@licp.me/2017/07/01/OS/process_thread/index.html">
 <meta property="og:site_name" content="LCP`s Blog">
+<meta property="og:description" content="1. 进程和线程 进程是程序一次执行的实例，是操作系统资源分配的基本单位（寄存器、堆栈、上下文等）。 线程是轻量级的进程，是操作系统调度和执行的基本单位。 一个线程只能属于一个进程，一个进程可以创建多个线程。 线程相对进程切换的所需开销较小。  2. 进程/线程间同步机制 临界区（Critical Section）：线程串行的访问公共资源或代码，任意时刻只允许一个线程对共享资源进行访问，其它线程想">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-07-31T15:10:37.029Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LCP`s Blog">
+<meta name="twitter:title" content="进程和线程">
+<meta name="twitter:description" content="1. 进程和线程 进程是程序一次执行的实例，是操作系统资源分配的基本单位（寄存器、堆栈、上下文等）。 线程是轻量级的进程，是操作系统调度和执行的基本单位。 一个线程只能属于一个进程，一个进程可以创建多个线程。 线程相对进程切换的所需开销较小。  2. 进程/线程间同步机制 临界区（Critical Section）：线程串行的访问公共资源或代码，任意时刻只允许一个线程对共享资源进行访问，其它线程想">
     
 
     
@@ -55,6 +60,8 @@
                     <a class="main-nav-link" href="/.">Home</a>
                 
                     <a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a>
+                
+                    <a class="main-nav-link" href="/categories/C++">C++</a>
                 
             </nav>
             
@@ -115,6 +122,8 @@
                 
                     <td><a class="main-nav-link" href="/categories/Data-Structure">Data Structure</a></td>
                 
+                    <td><a class="main-nav-link" href="/categories/C++">C++</a></td>
+                
                 <td>
                     
     <div class="search-form">
@@ -142,11 +151,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                7
+                9
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                8
+                13
                 <span>标签</span>
             </div>
         </div>
@@ -176,90 +185,88 @@
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-OS/process_thread" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/20/STL/list/">STL list</a>
+        <h1 class="article-title" itemprop="name">
+            进程和线程
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/06/20/STL/list/">
-            <time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017-06-20</time>
+        <a href="/2017/07/01/OS/process_thread/">
+            <time datetime="2017-06-30T16:00:00.000Z" itemprop="datePublished">2017-07-01</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
+        <a class="article-category-link" href="/categories/OS/">OS</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/list/">list</a>
+        <a class="tag-link" href="/tags/OS/">OS</a>, <a class="tag-link" href="/tags/process/">process</a>, <a class="tag-link" href="/tags/thread/">thread</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/06/20/STL/vector/">STL vector</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="1-进程和线程"><a href="#1-进程和线程" class="headerlink" title="1. 进程和线程"></a>1. 进程和线程</h2><ul>
+<li><strong>进程</strong>是程序一次执行的实例，是操作系统<strong>资源分配</strong>的基本单位（寄存器、堆栈、上下文等）。</li>
+<li><strong>线程</strong>是轻量级的进程，是操作系统<strong>调度和执行</strong>的基本单位。</li>
+<li>一个线程只能属于一个进程，一个进程可以创建多个线程。</li>
+<li>线程相对进程切换的所需开销较小。</li>
+</ul>
+<h2 id="2-进程-线程间同步机制"><a href="#2-进程-线程间同步机制" class="headerlink" title="2. 进程/线程间同步机制"></a>2. 进程/线程间同步机制</h2><ol>
+<li><strong>临界区（Critical Section）</strong>：线程串行的访问公共资源或代码，任意时刻只允许一个线程对共享资源进行访问，其它线程想必须等到该线程结束后才能对其进行抢占。</li>
+<li><p><strong>互斥量（Mutex）</strong>：只有拥有<strong>互斥对象</strong>线程才能访问公共资源。因为互斥对象唯一，因此保证公共资源不会同时被多个线程访问。</p>
+</li>
+<li><p><strong>信号量（Semaphore）</strong>：它允许多个线程同一时刻访问同一资源，但限制同时访问该资源的最大数量。</p>
+</li>
+<li><strong>事件（Event）</strong>：通过通知操作的方式保持线程的同步，还可以方便实现对多个线程的优先级比较。</li>
+</ol>
+<h2 id="3-进程间通信方式"><a href="#3-进程间通信方式" class="headerlink" title="3. 进程间通信方式"></a>3. 进程间通信方式</h2><ul>
+<li><strong>管道</strong>：数据只能单向流动</li>
+<li><strong>套接字</strong></li>
+<li><strong>信号量</strong>：信号量允许多个进程对共享资源进行访问，因此可以用来进行进程间通信</li>
+<li><strong>共享内存</strong>：共享内存由一个进程创建，但多个进程都可以访问</li>
+<li><strong>消息队列</strong>：消息队列是有消息的链表，存放在内核中并由消息队列标识符标识</li>
+</ul>
+<p>参考：</p>
+<blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html" target="_blank" rel="external">进程与线程的一个简单解释</a></p>
+</blockquote>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/06/20/STL/vector/">
-            <time datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017-06-20</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Data-Structure/">Data Structure</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/STL/">STL</a>, <a class="tag-link" href="/tags/vector/">vector</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-</div>
+    </div>
+</article>
 
-    <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/">&laquo; 上一页</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+
+    
+    
+        <section id="comments">
+    <div id="uyan_frame"></div>
+</section>
+    
+
 </section>
             
                 
@@ -269,7 +276,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">7</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Data-Structure/">Data Structure</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -278,7 +285,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">7</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">7</span></li></ul>
         </div>
     </div>
 
@@ -287,7 +294,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/STL/" style="font-size: 20px;">STL</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/hash-table/" style="font-size: 10px;">hash-table</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/红黑树/" style="font-size: 10px;">红黑树</a>
+            <a href="/tags/AVL/" style="font-size: 10px;">AVL</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/OS/" style="font-size: 10px;">OS</a> <a href="/tags/STL/" style="font-size: 20px;">STL</a> <a href="/tags/deque/" style="font-size: 10px;">deque</a> <a href="/tags/hash-table/" style="font-size: 10px;">hash-table</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/process/" style="font-size: 10px;">process</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/virtual-table/" style="font-size: 10px;">virtual-table</a> <a href="/tags/红黑树/" style="font-size: 10px;">红黑树</a>
         </div>
     </div>
 
